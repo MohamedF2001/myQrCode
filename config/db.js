@@ -7,8 +7,8 @@ const uri = "mongodb+srv://MoussF:mohamed2001@cluster0.rde6y.mongodb.net/codeqr?
 
 const connectDB = async () => {
     try {
-        //const conn = await mongoose.connect(dbConfig.database);
-        const conn = await mongoose.connect(uri);
+        const conn = await mongoose.connect(dbConfig.database);
+        //const conn = await mongoose.connect(uri);
         console.log(`MongoDB Connected: ${conn.connection.host}`);
     } catch (err) {
         console.error('Erreur de connexion MongoDB:', err);

@@ -178,10 +178,10 @@ const functions = {
         }
     },
 
-    permission: async (req, res) => {
+    /* permission: async (req, res) => {
         try {
-            const qr = await QrCode.findOne({ qrCode: req.query.qrCode });
-            
+            const qr = await QrCode.findOne({ qrCode: req.params.qrCode });
+            console.log(qr);
             if (!qr) {
                 return res.status(404).json({ success: false, msg: 'QR Code non trouvé', data: null });
             }
@@ -195,7 +195,33 @@ const functions = {
         } catch (err) {
             res.status(500).json({ success: false, msg: 'Erreur serveur', data: null, error: err.message });
         }
+    }, */
+    permission: async (req, res) => {
+        try {
+            const qr = await QrCode.findOne({ qrCode: req.params.qrCode });
+            
+            if (!qr) {
+                return res.status(404).json({ success: false, msg: 'QR Code non trouvé', data: null });
+            }
+            
+            qr.permis = !qr.permis; // Inverser la valeur de permis
+            await qr.save();
+            
+            res.json({ success: true, msg: "Permission mise à jour", data: qr });
+        } catch (err) {
+            res.status(500).json({ success: false, msg: 'Erreur serveur', data: null, error: err.message });
+        }
+    },
+
+    tousqr: async (req, res) => {
+        try {
+            const qrcodes = await QrCode.find();
+            res.json({ success: true, data: qrcodes });
+        } catch (err) {
+            res.status(500).json({ success: false, msg: 'Erreur serveur', error: err.message });
+        }
     }
+    
 };
 
 module.exports = functions;

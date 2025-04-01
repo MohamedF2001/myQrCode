@@ -27,4 +27,8 @@ router.get('/updateonly/:qrCode', actions.mafonction)
 //@route GET /findAndUpdateQr
 router.get('/mafonction2/:qrCode', actions.mafonction2)
 
+router.get('/permission/:qrCode', actions.permission)
+
+router.get('/tousqr', actions.tousqr);
+
 module.exports = router
