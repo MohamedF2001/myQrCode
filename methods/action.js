@@ -31,6 +31,8 @@ var functions = {
 
     mafonction: async function (req,res) {
         try {
+            let finalResult = {evenement:qr.evenement,numTicket:qr.numTicket,
+                nom:qr.nom,prenom:qr.prenom,telephone:qr.telephone,ticket:qr.monstatut,permis:qr.permis};
             const result = await QrCode.updateOne(
                 {qrCode : req.params.qrCode},
                 {
@@ -40,7 +42,7 @@ var functions = {
                 },
                 )
                 console.log('success', result)
-            res.json({message: "Statut changé!", result });
+            res.json({message: "Statut changé!", result, finalResult });
             }
             catch (err) {
            console.log('error', err)
